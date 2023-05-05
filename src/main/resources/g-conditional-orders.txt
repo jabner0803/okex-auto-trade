@@ -1,0 +1,83 @@
+
+long order:
+{
+  "actionBy": "FromOrderPlacement",
+  "symbol": "BTCUSDT",
+  "side": "Buy",
+  "triggerType": "ByMarkPrice",
+  "closeOnTrigger": false,
+  "reduceOnly": false,
+  "ordType": "LimitIfTouched",
+  "timeInForce": "GoodTillCancel",
+  "tpTrigger": "ByMarkPrice",
+  "slTrigger": "ByMarkPrice",
+  "orderQtyRq": "0.034",
+  "displayQtyRq": "0.034",
+  "priceRp": "28700.0",
+  "takeProfitRp": "29100.0",
+  "stopLossRp": "28000.0",
+  "stopPxRp": "28700.0",
+  "posSide": "Long"
+}
+
+long order mark price lower than current price
+{
+  "actionBy": "FromOrderPlacement",
+  "symbol": "BTCUSDT",
+  "side": "Buy",
+  "triggerType": "ByMarkPrice",
+  "closeOnTrigger": false,
+  "reduceOnly": false,
+  "ordType": "LimitIfTouched",
+  "timeInForce": "GoodTillCancel",
+  "tpTrigger": "",
+  "slTrigger": "",
+  "orderQtyRq": "0.034",
+  "displayQtyRq": "0.034",
+  "priceRp": "29000.0",
+  "takeProfitRp": "0.0",
+  "stopLossRp": "0.0",
+  "stopPxRp": "29000.0",
+  "posSide": "Long"
+}
+
+short order
+{
+  "actionBy": "FromOrderPlacement",
+  "symbol": "BTCUSDT",
+  "side": "Sell",
+  "triggerType": "ByMarkPrice",
+  "closeOnTrigger": false,
+  "reduceOnly": false,
+  "ordType": "LimitIfTouched",
+  "timeInForce": "GoodTillCancel",
+  "tpTrigger": "ByMarkPrice",
+  "slTrigger": "ByMarkPrice",
+  "orderQtyRq": "0.033",
+  "displayQtyRq": "0.033",
+  "priceRp": "29500.0",
+  "takeProfitRp": "28000.0",
+  "stopLossRp": "30000.0",
+  "stopPxRp": "29500.0",
+  "posSide": "Short"
+}
+
+{
+  "actionBy": "FromOrderPlacement",
+  "symbol": "BTCUSDT",
+  "side": "Sell",
+  "triggerType": "ByMarkPrice",
+  "closeOnTrigger": false,
+  "reduceOnly": false,
+  "ordType": "LimitIfTouched",
+  "timeInForce": "GoodTillCancel",
+  "tpTrigger": "ByMarkPrice",
+  "slTrigger": "ByMarkPrice",
+  "orderQtyRq": "0.033",
+  "displayQtyRq": "0.033",
+  "priceRp": "29600.0",
+  "takeProfitRp": "29400.0",
+  "stopLossRp": "29800.0",
+  "stopPxRp": "29600.0",
+  "posSide": "Short"
+}

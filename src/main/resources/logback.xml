@@ -1,0 +1,123 @@
+<configuration>
+  <property name="APP_NAME" value="java-client"/>
+
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [${APP_NAME}] [%thread] [%-5level] [%logger{36}] [%X{TRACE-ID}] [] [%msg]%n</pattern>
+    </encoder>
+  </appender>
+  <appender name="jobSiftLog" class="ch.qos.logback.classic.sift.SiftingAppender">
+
+    <!-- This is MDC value -->
+    <!-- We will assign a value to 'logFileName' via Java code -->
+    <discriminator>
+      <key>JOBNAME</key>
+      <defaultValue>other</defaultValue>
+    </discriminator>
+
+    <sift>
+
+      <!-- A standard RollingFileAppender, the log file is based on 'logFileName' at runtime  -->
+      <appender name="FILE-${JOBNAME}"  class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/${JOBNAME}.log</file>
+
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+          <Pattern>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [${APP_NAME}] [%thread] [%-5level] [%logger{36}] [%X{TRACE-ID}] [] [%msg]%n</pattern>
+          </Pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+          <!-- rollover daily -->
+          <fileNamePattern>logs/%d{yyyy-MM-dd}/${JOBNAME}.%i.log</fileNamePattern>
+          <!-- each file should be at most 30m, keep 60 days worth of history, but at most 20GB -->
+          <maxFileSize>30MB</maxFileSize>
+          <maxHistory>60</maxHistory>
+          <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+      </appender>
+
+    </sift>
+  </appender>
+
+  <appender name="appLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/${APP_NAME}.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <!-- rollover daily -->
+      <fileNamePattern>logs/%d{yyyy-MM-dd}/${APP_NAME}.%i.log</fileNamePattern>
+      <!-- each file should be at most 20MB, keep 30 days worth of history, but at most 20GB -->
+      <maxFileSize>30MB</maxFileSize>
+      <maxHistory>30</maxHistory>
+      <totalSizeCap>20GB</totalSizeCap>
+    </rollingPolicy>
+    <encoder>
+      <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [${APP_NAME}] [%thread] [%-5level] [%logger{36}] [%X{TRACE-ID}] [] [%msg]%n</pattern>
+    </encoder>
+  </appender>
+  <appender name="otherLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/${APP_NAME}_other.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <!-- rollover daily -->
+      <fileNamePattern>logs/%d{yyyy-MM-dd}/${APP_NAME}_other.%i.log</fileNamePattern>
+      <!-- each file should be at most 20MB, keep 30 days worth of history, but at most 20GB -->
+      <maxFileSize>30MB</maxFileSize>
+      <maxHistory>30</maxHistory>
+      <totalSizeCap>20GB</totalSizeCap>
+    </rollingPolicy>
+    <encoder>
+      <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [${APP_NAME}] [%thread] [%-5level] [%logger{36}] [%X{TRACE-ID}] [] [%msg]%n</pattern>
+    </encoder>
+  </appender>
+
+  <appender name="errLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/${APP_NAME}_error.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <!-- rollover daily -->
+      <fileNamePattern>logs/%d{yyyy-MM-dd}/${APP_NAME}_error.%i.log</fileNamePattern>
+      <!-- each file should be at most 20MBls keep 30 days worth of history, but at most 20GB -->
+      <maxFileSize>50MB</maxFileSize>
+      <maxHistory>30</maxHistory>
+      <totalSizeCap>20GB</totalSizeCap>
+    </rollingPolicy>
+    <encoder>
+      <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [${APP_NAME}] [%thread] [%-5level] [%logger{36}] [%X{TRACE-ID}] [] [%msg]%n</pattern>
+    </encoder>
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>ERROR</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+  </appender>
+
+  <appender name="warnLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>logs/${APP_NAME}_warn.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+      <!-- rollover daily -->
+      <fileNamePattern>logs/%d{yyyy-MM-dd}/${APP_NAME}_warn.%i.log</fileNamePattern>
+      <!-- each file should be at most 20MBls keep 30 days worth of history, but at most 20GB -->
+      <maxFileSize>50MB</maxFileSize>
+      <maxHistory>30</maxHistory>
+      <totalSizeCap>20GB</totalSizeCap>
+    </rollingPolicy>
+    <encoder>
+      <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [${APP_NAME}] [%thread] [%-5level] [%logger{36}] [%X{TRACE-ID}] [] [%msg]%n</pattern>
+    </encoder>
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">
+      <level>WARN</level>
+      <onMatch>ACCEPT</onMatch>
+      <onMismatch>DENY</onMismatch>
+    </filter>
+  </appender>
+
+  <logger name="com.netflix" level="error" additivity="false">
+    <appender-ref ref="otherLog" />
+  </logger>
+  <logger name="com.phemex" level="debug" additivity="false">
+    <appender-ref ref="jobSiftLog" />
+  </logger>
+
+  <root level="info">
+    <appender-ref ref="appLog"/>
+    <appender-ref ref="STDOUT"/>
+  </root>
+</configuration>

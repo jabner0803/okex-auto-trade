@@ -1,0 +1,9 @@
+{
+  "code": 0,
+  "msg": "OK",
+  "data": {
+    "maxBorrowAmountRq": "80000",
+    "borrowedAmountRq": "40",
+    "currency": "USDT"
+  }
+}

@@ -1,0 +1,11 @@
+/build/
+/logs/
+/build/classes/
+/build/distributions/
+/build/libs/
+/build/resources/
+/build/scripts/
+/build/tmp/
+/.idea/
+/gradle/
+/.gradle/
